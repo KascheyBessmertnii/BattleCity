@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4950430490910864802}
   - component: {fileID: 466423674}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b9235584352f643b9119108288deab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootKey: 32
+  p1ShootKey: 32
+  p2ShootKey: 271
 --- !u!114 &4950430490910864807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebae5c66ad94ba24f8401df10c613931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 40
 --- !u!114 &4950430490910864802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startHealth: 3
+  defaultDamage: 1
   playerNum: 1
 --- !u!1 &4950430491713816631
 GameObject:

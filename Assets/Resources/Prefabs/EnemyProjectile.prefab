@@ -60,6 +60,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   activationDelay: 0.05
+  ignoreTags:
+  - Enemy
+  - Bonus
 --- !u!1001 &2925675226648638555
 PrefabInstance:
   m_ObjectHideFlags: 0

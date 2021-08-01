@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -643908917631567409}
   m_Layer: 0
   m_Name: BonusHealth
-  m_TagString: Untagged
+  m_TagString: Bonus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   bonusValue: 1
-  collectSound: {fileID: 8300000, guid: 739c98be7e56a5448b7884ad0e9527c1, type: 3}
 --- !u!82 &-643908917631567409
 AudioSource:
   m_ObjectHideFlags: 0

@@ -111,7 +111,7 @@ MonoBehaviour:
   health: 2
   spawnBonus: 1
   scoreReward: 100
-  moveTime: 10
+  moveTime: 15
   shootInterval: 1
 --- !u!114 &3355793962007257790
 MonoBehaviour:

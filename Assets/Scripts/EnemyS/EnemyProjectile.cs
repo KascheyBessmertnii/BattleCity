@@ -9,7 +9,7 @@ public class EnemyProjectile : Projectile
             obj.Destroy(0);
             Destroy(gameObject);
         }
-        else if (!other.CompareTag("Enemy"))
+        else if (!IsIgnore(other.tag))
         {
             Destroy(gameObject);
         }

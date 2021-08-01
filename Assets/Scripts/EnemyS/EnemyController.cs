@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour, IDestructable
             StartCoroutine(Move());
         }
             
-        if (rb.velocity.magnitude < speed - 0.5f)
+        if (rb.velocity.magnitude < speed - 0.1f)
         {
             StopAllCoroutines();
             currentDirection = Vector3.zero;
@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour, IDestructable
     {
         float rnd = Random.Range(0, 1f);
 
-        if(rnd > 0.8f)
+        if(rnd > 0.9f)
         {
             shootTimer = shootInterval;
             shooting.Shoot();

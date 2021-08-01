@@ -49,6 +49,17 @@ public class SceneController : MonoBehaviour
         return player2;
     }
 
+    public int GetPlayerHealth(int playerNum)
+    {
+        if (playerNum == 1)
+            return player1.CurrentHealth;
+
+        if (playerNum == 2 && player2 != null)
+            return player2.CurrentHealth;
+
+        return 0;
+    }
+
     private void OnDestroy()
     {
         instance = null;

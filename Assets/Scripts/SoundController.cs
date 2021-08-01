@@ -12,6 +12,7 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip clipBullet;
     [SerializeField] private AudioClip collectBonus;
 
+    #region Unity methods
     private void Awake()
     {
         if (instance == null)
@@ -19,11 +20,15 @@ public class SoundController : MonoBehaviour
         mainSound.volume = PlayerPrefs.GetFloat("MainSound");
         soundEffects.volume = PlayerPrefs.GetFloat("EffectsSound");
     }
-    private void PlaySound(AudioClip clip)
+
+    private void OnEnable()
     {
-        if (clip == null) return;
-        soundEffects.clip = clip;
-        soundEffects.Play();
+        GameEvents.OnGameEnd += PlayBaseDestroy;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnGameEnd -= PlayBaseDestroy;
     }
 
     private void OnDestroy()
@@ -31,6 +36,22 @@ public class SoundController : MonoBehaviour
         PlayerPrefs.SetFloat("MainSound", mainSound.volume);
         PlayerPrefs.SetFloat("EffectsSound", soundEffects.volume);
     }
+    #endregion
+
+    #region Private methods
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip == null) return;
+        soundEffects.clip = clip;
+        soundEffects.Play();
+    }
+    private void PlayMainSound(AudioClip clip)
+    {
+        if (clip == null) return;
+        mainSound.clip = clip;
+        mainSound.Play();
+    }
+    #endregion
 
     #region Public methods
     public void PlayDestroy()
@@ -39,7 +60,7 @@ public class SoundController : MonoBehaviour
     }
     public void PlayBaseDestroy()
     {
-        PlaySound(destroyBase);
+        PlayMainSound(destroyBase);
     }
     public void PlayCollectBonus()
     {

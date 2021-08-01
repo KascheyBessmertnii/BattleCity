@@ -19,13 +19,26 @@ public class PlayerController : MonoBehaviour, IDestructable, ICollectBonus
     }
     private void RespawnPlayer()
     {
-        Transform spawnPosition = 
-            playerNum == 1 ? SceneController.instance.player1Spawn : SceneController.instance.player2Spawn;
         CurrentHealth--;
+
+        if(CheckEndGame())
+        {
+            GameEvents.OnGameEnd?.Invoke();
+            return;
+        }
+
+        if (CurrentHealth == 0) return;
+
+        Transform spawnPosition = 
+            playerNum == 1 ? SceneController.instance.player1Spawn : SceneController.instance.player2Spawn;     
         transform.position = spawnPosition.position;
         transform.rotation = spawnPosition.rotation;
         GameEvents.OnPlayerDestroy?.Invoke();
         Damage = defaultDamage;
+    }
+    private bool CheckEndGame()
+    {
+        return SceneController.instance.GetPlayerHealth(1) == 0 && SceneController.instance.GetPlayerHealth(2) == 0;
     }
     public void Destroy(int playerNum)
     {
