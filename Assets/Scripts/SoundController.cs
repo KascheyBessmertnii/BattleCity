@@ -1,0 +1,61 @@
+using UnityEngine;
+
+[RequireComponent(typeof(AudioSource))]
+public class SoundController : MonoBehaviour
+{
+    public static SoundController instance;
+    [SerializeField] private AudioSource mainSound;
+    [SerializeField] private AudioSource soundEffects;
+    [Header("Sound resources")]
+    [SerializeField] private AudioClip destroySound;
+    [SerializeField] private AudioClip destroyBase;
+    [SerializeField] private AudioClip clipBullet;
+    [SerializeField] private AudioClip collectBonus;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        mainSound.volume = PlayerPrefs.GetFloat("MainSound");
+        soundEffects.volume = PlayerPrefs.GetFloat("EffectsSound");
+    }
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip == null) return;
+        soundEffects.clip = clip;
+        soundEffects.Play();
+    }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.SetFloat("MainSound", mainSound.volume);
+        PlayerPrefs.SetFloat("EffectsSound", soundEffects.volume);
+    }
+
+    #region Public methods
+    public void PlayDestroy()
+    {
+        PlaySound(destroySound);
+    }
+    public void PlayBaseDestroy()
+    {
+        PlaySound(destroyBase);
+    }
+    public void PlayCollectBonus()
+    {
+        PlaySound(collectBonus);
+    }
+    public void PlayClip()
+    {
+        PlaySound(clipBullet);
+    }
+    public void SetMainVolume(float value)
+    {
+        mainSound.volume = value;
+    }
+    public void SetEffectsVolume(float value)
+    {
+        soundEffects.volume = value;
+    }
+    #endregion
+}
