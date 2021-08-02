@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class StartGameUI : MonoBehaviour
 {
@@ -16,6 +15,6 @@ public class StartGameUI : MonoBehaviour
     private void PlayerSelected(int count)
     {
         SceneData.InitializeLevel(1, count);
-        SceneManager.LoadSceneAsync(1);
+        SceneLoader.LoadSceneAsync(1);
     }
 }

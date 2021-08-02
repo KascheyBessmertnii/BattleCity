@@ -1,15 +1,21 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class EndGameUI : MonoBehaviour
 {
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private TMP_Text hiScoreCounter;
     [SerializeField] private TMP_Text levelCounter;
+    [Header("Player 1")]
     [SerializeField] private TMP_Text player1Score;
     [SerializeField] private TMP_Text player1Tanks;
+    [Header("Player 2")]
     [SerializeField] private TMP_Text player2Score;
     [SerializeField] private TMP_Text player2Tanks;
+    [Header("Load level")]
+    [SerializeField] private float loadDelay = 10f;
+    [SerializeField] private TMP_Text returnCounter;
 
     #region Unity methods
     private void Awake()
@@ -37,6 +43,8 @@ public class EndGameUI : MonoBehaviour
 
         ShowPlayerData(1);
         ShowPlayerData(2);
+
+        StartCoroutine(LoadScene());
     }
     private void ShowPlayerData(int playerNum)
     {
@@ -58,6 +66,24 @@ public class EndGameUI : MonoBehaviour
 
         if (playerData.Score > SceneData.MaxScore)
             SceneData.UpdateMaxScore(playerData.Score);
+    }
+    #endregion
+
+    #region Coroutines
+    private IEnumerator LoadScene()
+    {
+        while(loadDelay > 0)
+        {
+            if(returnCounter != null)
+            {
+                returnCounter.text = loadDelay.ToString();
+            }
+            
+            yield return new WaitForSecondsRealtime(1);
+            loadDelay--;
+        }
+            
+        SceneLoader.LoadSceneAsync("MainMenu");
     }
     #endregion
 }
