@@ -1,12 +1,13 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] spawnPoints = new Transform[3];
     [SerializeField] private float spawnDelay = 1f;
-    [SerializeField] private SpawnData[] enemys;
+    [SerializeField] private UnitsWeight[] units;
+
+    private SpawnData[] enemys;
     
     public static int MobsOnMap { get; private set; } = 20;//Default value 20
 
@@ -15,6 +16,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        enemys = new SpawnData[units.Length];
+        for (int i = 0; i < units.Length; i++)
+        {
+            enemys[i] = new SpawnData(units[i].prefab, units[i].weight);
+        }
+
         if(spawnPoints.Length > 0)
         StartCoroutine(SpawnEnemy());
     }
@@ -30,34 +37,11 @@ public class EnemySpawner : MonoBehaviour
     {
         StopAllCoroutines();
     }
-
-    private GameObject GetRandomEnemy()
-    {
-        int totalWeight = enemys.Sum(c => c.weight);
-        int rnd = Random.Range(0, totalWeight);
-        int sum = 0;
-
-        foreach (var item in enemys)
-        {
-            for (int i = sum; i < item.weight+sum; i++)
-            {
-                if(i >= rnd)
-                {
-                    return item.prefab;
-                }
-            }
-            sum += item.weight;
-        }
-
-        return enemys.First().prefab;
-    }
-
     IEnumerator SpawnEnemy()
     {
         while(spawnedMobs < MobsOnMap )
         {
-            int rnd = (int)(Random.Range(0, (float)enemys.Length));
-            GameObject currPrefab = GetRandomEnemy();
+            GameObject currPrefab = Utility.GetRandomValue<SpawnData>(enemys).Prefab;
             Instantiate(currPrefab, spawnPoints[currentSpawnPoint].position, spawnPoints[currentSpawnPoint].rotation);
             currentSpawnPoint++;
             if (currentSpawnPoint == 3)
@@ -69,7 +53,20 @@ public class EnemySpawner : MonoBehaviour
 }
 
 [System.Serializable]
-public class SpawnData
+public class SpawnData : IWeighted
+{
+    public GameObject Prefab { get; set; }
+    public int Weight { get; set; }
+
+    public SpawnData(GameObject prefab, int weight)
+    {
+        Prefab = prefab;
+        Weight = weight;
+    }
+}
+
+[System.Serializable]
+public class UnitsWeight
 {
     public GameObject prefab;
     public int weight;

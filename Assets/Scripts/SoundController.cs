@@ -42,14 +42,16 @@ public class SoundController : MonoBehaviour
     private void PlaySound(AudioClip clip)
     {
         if (clip == null) return;
-        soundEffects.clip = clip;
-        soundEffects.Play();
-    }
-    private void PlayMainSound(AudioClip clip)
-    {
-        if (clip == null) return;
-        mainSound.clip = clip;
-        mainSound.Play();
+        if(mainSound.isPlaying)
+        {
+            soundEffects.clip = clip;
+            soundEffects.Play();
+        }
+        else
+        {
+            mainSound.clip = clip;
+            mainSound.Play();
+        }
     }
     #endregion
 
@@ -60,7 +62,7 @@ public class SoundController : MonoBehaviour
     }
     public void PlayBaseDestroy()
     {
-        PlayMainSound(destroyBase);
+        PlaySound(destroyBase);
     }
     public void PlayCollectBonus()
     {

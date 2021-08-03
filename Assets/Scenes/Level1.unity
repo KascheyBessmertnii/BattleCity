@@ -10847,9 +10847,11 @@ MonoBehaviour:
   - {fileID: 1304630248}
   - {fileID: 554384911}
   spawnDelay: 5
-  enemyPrefab:
-  - {fileID: 7404670140384967865, guid: 5441bbf5bf305204887f688bc2b1947d, type: 3}
-  - {fileID: 7404670140384967865, guid: 0601f4f96e33fac4a9360b98e337afb7, type: 3}
+  units:
+  - prefab: {fileID: 7404670140384967865, guid: 5441bbf5bf305204887f688bc2b1947d, type: 3}
+    weight: 50
+  - prefab: {fileID: 7404670140384967865, guid: 0601f4f96e33fac4a9360b98e337afb7, type: 3}
+    weight: 10
 --- !u!1 &1871054598
 GameObject:
   m_ObjectHideFlags: 0

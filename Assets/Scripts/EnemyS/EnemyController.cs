@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -6,10 +5,10 @@ public class EnemyController : MonoBehaviour, IDestructable
 {
     [SerializeField] private UnitSO unitData;
 
-    private readonly Vector3[] directions = new Vector3[4] { new Vector3(1, 0, 0),
-                                                    new Vector3(-1, 0, 0),
-                                                    new Vector3(0, 0, 1),
-                                                    new Vector3(0, 0, -1) };
+    private readonly Directions[] directions = new Directions[4] { new Directions(new Vector3(1, 0, 0), 20),
+                                                    new Directions(new Vector3(-1, 0, 0), 20),
+                                                    new Directions(new Vector3(0, 0, 1), 10),
+                                                    new Directions(new Vector3(0, 0, -1), 30) };
 
     private Rigidbody rb;
     private IShooting shooting;
@@ -47,14 +46,12 @@ public class EnemyController : MonoBehaviour, IDestructable
 
         if (currentDirection == Vector3.zero)
         {
-            StopAllCoroutines();
-            StartCoroutine(Move());
+            Move();
         }
             
         if (rb.velocity.magnitude < unitData.speed - 0.1f)
         {
-            StopAllCoroutines();
-            currentDirection = Vector3.zero;
+            Stop();
         }
     }
     #endregion
@@ -70,12 +67,6 @@ public class EnemyController : MonoBehaviour, IDestructable
             shooting.Shoot();
         }
     }
-    private Vector3 GetRandomDirections()
-    {
-        int rnd = Random.Range(0, directions.Length);
-
-        return directions[rnd];
-    }
     private void Stop()
     {
         currentDirection = Vector3.zero;
@@ -86,6 +77,15 @@ public class EnemyController : MonoBehaviour, IDestructable
         Destroy(gameObject);
         isDestroy = true;
         Stop();
+    }
+
+    private void Move()
+    {
+        currentDirection = Utility.GetRandomValue<Directions>(directions).Direct;
+        float targetAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+        rb.velocity = currentDirection * unitData.speed;
     }
     #endregion
 
@@ -111,23 +111,17 @@ public class EnemyController : MonoBehaviour, IDestructable
             GameEvents.OnSpawnBonus?.Invoke();
     }
     #endregion
+}
 
-    #region Coroutines
-    IEnumerator Move()
+[System.Serializable]
+public class Directions : IWeighted
+{
+    public Vector3 Direct { get; set; }
+    public int Weight { get; set; }
+
+    public Directions(Vector3 dir, int weight)
     {
-        currentDirection = GetRandomDirections();
-        float targetAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-
-        float elapsedTime = unitData.moveTime;
-        rb.velocity = currentDirection * unitData.speed;
-        while (elapsedTime > 0)
-        {       
-            elapsedTime -= Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-
-        Stop();
+        Direct = dir;
+        this.Weight = weight;
     }
-    #endregion
 }

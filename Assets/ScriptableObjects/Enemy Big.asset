@@ -19,5 +19,5 @@ MonoBehaviour:
   playerNum: 1
   spawnBonus: 1
   scoreReward: 200
-  moveTime: 5
+  moveTime: 15
   shootInterval: 0.7
