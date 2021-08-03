@@ -107,12 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90109803e823a62408d838a5b7b3e480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  health: 1
-  spawnBonus: 0
-  scoreReward: 100
-  moveTime: 20
-  shootInterval: 1
+  unitData: {fileID: 11400000, guid: 149c9a8ea4a80a547a7bef1b307b18b6, type: 2}
 --- !u!114 &3355793962007257790
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,12 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyController : MonoBehaviour, IDestructable
 {
-    [SerializeField] private float speed;
-    [SerializeField] private int health = 1;
-    [SerializeField] private bool spawnBonus = false;
-    [SerializeField] private int scoreReward = 100;
-    [SerializeField] private float moveTime = 5f;
-    [SerializeField, Range(0.7f, 2f)] private float shootInterval = 0.7f;
+    [SerializeField] private UnitSO unitData;
 
     private readonly Vector3[] directions = new Vector3[4] { new Vector3(1, 0, 0),
                                                     new Vector3(-1, 0, 0),
@@ -18,6 +13,7 @@ public class EnemyController : MonoBehaviour, IDestructable
 
     private Rigidbody rb;
     private IShooting shooting;
+    private int health;
 
     private bool isDestroy = false;
     private Vector3 currentDirection = Vector3.zero;
@@ -36,6 +32,7 @@ public class EnemyController : MonoBehaviour, IDestructable
     {
         TryGetComponent(out rb);
         TryGetComponent(out shooting);
+        health = unitData.defaultHealth;
     }
     private void Update()
     {
@@ -54,7 +51,7 @@ public class EnemyController : MonoBehaviour, IDestructable
             StartCoroutine(Move());
         }
             
-        if (rb.velocity.magnitude < speed - 0.1f)
+        if (rb.velocity.magnitude < unitData.speed - 0.1f)
         {
             StopAllCoroutines();
             currentDirection = Vector3.zero;
@@ -69,7 +66,7 @@ public class EnemyController : MonoBehaviour, IDestructable
 
         if(rnd > 0.9f)
         {
-            shootTimer = shootInterval;
+            shootTimer = unitData.shootInterval;
             shooting.Shoot();
         }
     }
@@ -101,7 +98,7 @@ public class EnemyController : MonoBehaviour, IDestructable
 
         if(pc.Damage >= health)
         {           
-            pc.AddEnemy(scoreReward);
+            pc.AddEnemy(unitData.scoreReward);
             SoundController.instance.PlayDestroy();
             Destroy(gameObject);
             isDestroy = true;
@@ -110,7 +107,7 @@ public class EnemyController : MonoBehaviour, IDestructable
         else
             health -= pc.Damage;
 
-        if(spawnBonus)
+        if(unitData.spawnBonus)
             GameEvents.OnSpawnBonus?.Invoke();
     }
     #endregion
@@ -122,8 +119,8 @@ public class EnemyController : MonoBehaviour, IDestructable
         float targetAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
 
-        float elapsedTime = moveTime;
-        rb.velocity = currentDirection * speed;
+        float elapsedTime = unitData.moveTime;
+        rb.velocity = currentDirection * unitData.speed;
         while (elapsedTime > 0)
         {       
             elapsedTime -= Time.deltaTime;

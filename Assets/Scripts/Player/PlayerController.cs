@@ -2,20 +2,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDestructable, ICollectBonus
 {
-    [SerializeField] private int startHealth = 3;
-    [SerializeField] private int defaultDamage = 1;
-    [SerializeField, Range(1,2)] private int playerNum = 1;
+    [SerializeField] private UnitSO unitData;
 
     public int Damage { get; private set; }
     public int CurrentHealth { get; private set; }
     public int Score { get; private set; } = 0;
     public int DestroyedEnemy { get; private set; } = 0;
-    public int PlayerNum => playerNum;
+    public int PlayerNum => unitData.playerNum;
 
     private void Awake()
     {
-        CurrentHealth = startHealth;
-        Damage = defaultDamage;
+        CurrentHealth = unitData.defaultHealth;
+        Damage = unitData.defaultDamage;
     }
     private void RespawnPlayer()
     {
@@ -30,11 +28,11 @@ public class PlayerController : MonoBehaviour, IDestructable, ICollectBonus
         if (CurrentHealth == 0) return;
 
         Transform spawnPosition = 
-            playerNum == 1 ? SceneController.instance.player1Spawn : SceneController.instance.player2Spawn;     
+            unitData.playerNum == 1 ? SceneController.instance.player1Spawn : SceneController.instance.player2Spawn;     
         transform.position = spawnPosition.position;
         transform.rotation = spawnPosition.rotation;
         GameEvents.OnPlayerDestroy?.Invoke();
-        Damage = defaultDamage;
+        Damage = unitData.defaultDamage;
     }
     private bool CheckEndGame()
     {

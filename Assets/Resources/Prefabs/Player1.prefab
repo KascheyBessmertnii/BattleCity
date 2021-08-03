@@ -121,9 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc23eb016811ef4c92b66e29a3fd5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 3
-  defaultDamage: 1
-  playerNum: 1
+  unitData: {fileID: 11400000, guid: 006b7034f6296664da31f53aac42f0b5, type: 2}
 --- !u!1 &4950430491713816631
 GameObject:
   m_ObjectHideFlags: 0
