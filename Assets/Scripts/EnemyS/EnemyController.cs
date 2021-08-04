@@ -122,6 +122,6 @@ public class Directions : IWeighted
     public Directions(Vector3 dir, int weight)
     {
         Direct = dir;
-        this.Weight = weight;
+        Weight = weight;
     }
 }
