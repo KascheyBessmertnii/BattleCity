@@ -27,10 +27,9 @@ public class PlayerController : MonoBehaviour, IDestructable, ICollectBonus
 
         if (CurrentHealth == 0) return;
 
-        Transform spawnPosition = 
-            unitData.playerNum == 1 ? SceneController.instance.player1Spawn : SceneController.instance.player2Spawn;     
-        transform.position = spawnPosition.position;
-        transform.rotation = spawnPosition.rotation;
+        Vector3 spawnPosition = 
+            unitData.playerNum == 1 ? SceneData.GetObjectSpawnPoint(ObjectsTypes.Player1) : SceneData.GetObjectSpawnPoint(ObjectsTypes.Player2);     
+        transform.position = spawnPosition;
         GameEvents.OnPlayerDestroy?.Invoke();
         Damage = unitData.defaultDamage;
     }

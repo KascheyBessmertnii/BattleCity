@@ -35,6 +35,7 @@ public class UI : MonoBehaviour
 
     private void UIUpdate()
     {
+        if (SceneData.LevelNum == 0) return;
         player1Health.text = SceneController.instance.GetPlayerHealth(1).ToString();
         player2Health.text = SceneController.instance.GetPlayerHealth(2).ToString();
     }

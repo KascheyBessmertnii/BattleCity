@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player 2
   m_EditorClassIdentifier: 
   type: 0
-  speed: 40
+  speed: 4
   defaultHealth: 3
   defaultDamage: 1
   playerNum: 2

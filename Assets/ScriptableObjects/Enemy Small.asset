@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Small
   m_EditorClassIdentifier: 
   type: 1
-  speed: 10
+  speed: 1
   defaultHealth: 1
   defaultDamage: 1
   playerNum: 1

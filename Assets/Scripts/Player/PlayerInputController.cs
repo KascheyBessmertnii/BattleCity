@@ -59,7 +59,6 @@ public class PlayerInputController : MonoBehaviour
             GameEvents.OnShowMenu?.Invoke();
         }
     }
-
     void FixedUpdate()
     {
         if (movement != null)

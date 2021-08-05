@@ -33,16 +33,12 @@ public class BonusSpawner : MonoBehaviour
 
         currentBonus = Instantiate(bonuses[rnd], GetRandomPosition(), Quaternion.identity);
     }
-    private void RemoveBonus()
-    {
-        currentBonus = null;
-    }
     private Vector3 GetRandomPosition()
     {
         float x = Random.Range(topLeftPoint.position.x, bottomRightPoint.position.x);
         float z = Random.Range(topLeftPoint.position.z, bottomRightPoint.position.z);
 
-        return new Vector3(x, 17f, z);
+        return new Vector3(x, 1.1f, z);
     }
     #endregion
 }

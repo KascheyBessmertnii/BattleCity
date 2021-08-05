@@ -12,22 +12,18 @@ public class Movement : MonoBehaviour, IMovement
     {
         TryGetComponent(out rb);
     }
-
     private void OnEnable()
     {
         GameEvents.OnPlayerDestroy += Stop;
     }
-
     private void OnDisable()
     {
         GameEvents.OnPlayerDestroy -= Stop;
     }
-
     private void Stop()
     {
         rb.velocity = Vector3.zero;
     }
-
     public void Move(Vector3 direction)
     {
         if(direction.magnitude >= 0.1)

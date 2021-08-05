@@ -12,32 +12,38 @@ public class SceneController : MonoBehaviour
     }
     #endregion
 
-    public Transform player1Spawn;
-    public Transform player2Spawn;
-
     private PlayerController player1;
     private PlayerController player2;
 
-    private void Start()
-    {
-        SpawnPlayer("Player1", player1Spawn, 1);
-        if (SceneData.PlayersNum == 2)
-            SpawnPlayer("Player2", player2Spawn, 2);
+    private Level level;
 
+    private void OnEnable()
+    {
+        string data = FileHandler.GetRawlevelData(1);
+        level = new Level(SceneData.mapSize, data);
+
+        SpawnPlayer("Player1", level.GetPlayerSpawn(1), 1);
+        if (SceneData.PlayersNum == 2)
+            SpawnPlayer("Player2", level.GetPlayerSpawn(2), 2);
+
+        //reset players
         GameEvents.OnPlayerDestroy?.Invoke();
     }
-
-    private void SpawnPlayer(string prefabName, Transform pos, int playerNum)
+    private void OnDestroy()
     {
+        instance = null;
+    }
+    private void SpawnPlayer(string prefabName, Vector3 pos, int playerNum)
+    {
+        if (pos == new Vector3(-1, -1, -1)) return;
         GameObject prefab = Resources.Load("Prefabs/" + prefabName) as GameObject;
-        var obj = Instantiate(prefab, pos.position, pos.rotation).GetComponent<PlayerController>();
+        var obj = Instantiate(prefab, pos, Quaternion.identity).GetComponent<PlayerController>();
 
         if (playerNum == 1)
             player1 = obj;
         else
             player2 = obj;
     }
-
     public PlayerController GetPlayerData(int playerNum)
     {
         if (playerNum == 0)
@@ -48,7 +54,6 @@ public class SceneController : MonoBehaviour
 
         return player2;
     }
-
     public int GetPlayerHealth(int playerNum)
     {
         if (playerNum == 1)
@@ -58,10 +63,5 @@ public class SceneController : MonoBehaviour
             return player2.CurrentHealth;
 
         return 0;
-    }
-
-    private void OnDestroy()
-    {
-        instance = null;
-    }
+    }  
 }
