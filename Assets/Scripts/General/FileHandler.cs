@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -61,7 +60,7 @@ public static class FileHandler
 
     public static string GetRawlevelData(int levelNum)
     {
-        string path = "Assets/Resources/Levels/Level" + levelNum;
+        string path = SceneData.mapFolder + levelNum;
         if(File.Exists(path))
             return File.ReadAllText(path);
         return "";

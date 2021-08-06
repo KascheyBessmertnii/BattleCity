@@ -583,6 +583,7 @@ MonoBehaviour:
   destroyBase: {fileID: 8300000, guid: bdcd4e67b4d37794988d4c89a66d5527, type: 3}
   clipBullet: {fileID: 8300000, guid: c1165583417f8794ab46c054322df204, type: 3}
   collectBonus: {fileID: 8300000, guid: 739c98be7e56a5448b7884ad0e9527c1, type: 3}
+  newHiScore: {fileID: 8300000, guid: ecf43246c64d1f540a59492589e22169, type: 3}
 --- !u!82 &786662962
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1249,10 +1250,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2067610022}
-  - component: {fileID: 2067610023}
   - component: {fileID: 2067610021}
   - component: {fileID: 2067610024}
   - component: {fileID: 2067610025}
+  - component: {fileID: 2067610023}
   - component: {fileID: 2067610026}
   m_Layer: 0
   m_Name: SceneController

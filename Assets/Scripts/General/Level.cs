@@ -6,8 +6,6 @@ public class Level
 {
     private Point[,] map;
 
-    private const string levelPrefix = "Level";
-
     private Dictionary<ObjectsTypes, bool> singleObjectSpawned;
 
     public Level(Vector2Int mapSize, string mapData = null)
@@ -73,7 +71,7 @@ public class Level
     }
     public void SaveLevel(string levelNum)
     {
-        string path = "Assets/Resources/Levels/" + levelPrefix + levelNum;
+        string path = SceneData.mapFolder + levelNum;
         FileHandler.SavePointsArray(map, path);
     }
     public bool Contains(ObjectsTypes type)

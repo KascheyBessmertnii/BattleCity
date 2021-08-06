@@ -4,6 +4,7 @@ using TMPro;
 
 public class CreateLevelUI : MonoBehaviour
 {
+    [Header("Main map settings")]
     [SerializeField] protected Vector2Int mapSize = new Vector2Int(26, 26);
     [SerializeField] protected int squareSize = 1;
     [SerializeField, Range(-10f, 10f)] protected float offsetX = 0;

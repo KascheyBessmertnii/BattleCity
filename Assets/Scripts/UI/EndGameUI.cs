@@ -43,6 +43,7 @@ public class EndGameUI : MonoBehaviour
 
         ShowPlayerData(1);
         ShowPlayerData(2);
+        SceneData.SetNextLevel();
 
         StartCoroutine(LoadScene());
     }
@@ -53,7 +54,7 @@ public class EndGameUI : MonoBehaviour
         string destroy = "”ничтожено: " + playerData.DestroyedEnemy.ToString();
         string score = "ќчки: " + playerData.Score.ToString();
 
-        if(playerNum == 1)
+        if (playerNum == 1)
         {
             player1Tanks.text = destroy;
             player1Score.text = score;
@@ -65,7 +66,12 @@ public class EndGameUI : MonoBehaviour
         }
 
         if (playerData.Score > SceneData.MaxScore)
+        {
             SceneData.UpdateMaxScore(playerData.Score);
+            hiScoreCounter.text = playerData.Score.ToString();
+            SoundController.instance.PlayNewHiScore();
+        }
+            
     }
     #endregion
 
@@ -82,8 +88,15 @@ public class EndGameUI : MonoBehaviour
             yield return new WaitForSecondsRealtime(1);
             loadDelay--;
         }
-            
-        SceneLoader.LoadSceneAsync("MainMenu");
+
+        if (FileHandler.FileExist(SceneData.mapFolder + SceneData.LevelNum))
+        {
+            SceneLoader.LoadSceneAsync("GameScene");
+        }
+        else
+        {
+            SceneLoader.LoadSceneAsync("MainMenu");
+        }          
     }
     #endregion
 }

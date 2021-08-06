@@ -11,6 +11,7 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip destroyBase;
     [SerializeField] private AudioClip clipBullet;
     [SerializeField] private AudioClip collectBonus;
+    [SerializeField] private AudioClip newHiScore;
 
     #region Unity methods
     private void Awake()
@@ -56,6 +57,10 @@ public class SoundController : MonoBehaviour
     #endregion
 
     #region Public methods
+    public void PlayNewHiScore()
+    {
+        PlaySound(newHiScore);
+    }
     public void PlayDestroy()
     {
         PlaySound(destroySound);

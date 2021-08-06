@@ -4,6 +4,7 @@ using UnityEngine;
 public class SceneData
 {
     #region Fields
+    public static readonly string mapFolder = "Assets/Resources/Levels/Level";
     public static int MaxScore { get; private set; }
     public static int LevelNum { get; private set; }
     public static int PlayersNum { get; private set; }
@@ -73,5 +74,9 @@ public class SceneData
         if (mapSpawnPositions.ContainsKey(type))
             return mapSpawnPositions[type];
         return new Vector3(-1, -1, -1);
+    }
+    public static void SetNextLevel()
+    {
+        LevelNum++;
     }
 }

@@ -13,6 +13,7 @@ public class LevelCreateController : CreateLevelUI
     private Level level;
     private string savePath;
 
+    #region Unity methods
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -51,6 +52,8 @@ public class LevelCreateController : CreateLevelUI
             RemoveMapObject();
         }
     }
+    #endregion
+
     #region Private methods
     private void ResetObject()
     {
@@ -165,7 +168,7 @@ public class LevelCreateController : CreateLevelUI
         if (string.IsNullOrEmpty(iLevelNum.text)) return;
         if (!int.TryParse(iLevelNum.text, out int result)) return;
             
-        savePath = "Assets/Resources/Levels/Level" + result;
+        savePath = SceneData.mapFolder + result;
             
         if(!FileHandler.FileExist(savePath))
         {

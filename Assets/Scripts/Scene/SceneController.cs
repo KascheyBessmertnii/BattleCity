@@ -19,7 +19,7 @@ public class SceneController : MonoBehaviour
 
     private void OnEnable()
     {
-        string data = FileHandler.GetRawlevelData(1);
+        string data = FileHandler.GetRawlevelData(SceneData.LevelNum);
         level = new Level(SceneData.mapSize, data);
 
         SpawnPlayer("Player1", level.GetPlayerSpawn(1), 1);
