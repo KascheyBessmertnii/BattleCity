@@ -11,6 +11,7 @@ public class LevelCreateController : CreateLevelUI
     private bool prefabMultiply = true;
 
     private Level level;
+    private string savePath;
 
     private void Awake()
     {
@@ -19,7 +20,9 @@ public class LevelCreateController : CreateLevelUI
         level = new Level(mapSize);
 
         SpawnDefaultObjects();
-        InitializeButtons();    
+        InitializeButtons();
+
+        warningPanel?.SetActive(false);
     }
 
 #if UNITY_EDITOR
@@ -132,6 +135,10 @@ public class LevelCreateController : CreateLevelUI
         btnClose?.onClick.AddListener(() => CloseLevel());
         btnSave?.onClick.AddListener(() => SaveLevel());
     }
+    private void ShowSaveWarning()
+    {
+        warningPanel?.SetActive(true);
+    }
     #endregion
 
     #region UI buttons
@@ -148,19 +155,33 @@ public class LevelCreateController : CreateLevelUI
             prefabMultiply = multiply;
         }
     }
-
     public void CloseLevel()
     {
         SceneLoader.LoadSceneAsync(0);
     }
-
     public void SaveLevel()
     {
+
         if (string.IsNullOrEmpty(iLevelNum.text)) return;
-        if (int.TryParse(iLevelNum.text, out int result))
+        if (!int.TryParse(iLevelNum.text, out int result)) return;
+            
+        savePath = "Assets/Resources/Levels/Level" + result;
+            
+        if(!FileHandler.FileExist(savePath))
         {
             level.SaveLevel(iLevelNum.text);
+            return;
         }
+
+        ShowSaveWarning();
+    }
+    public void SaveBtnOk()
+    {
+        level.SaveLevel(iLevelNum.text);
+    }
+    public void SaveBtnNO()
+    {
+        warningPanel?.SetActive(false);
     }
     #endregion
 }

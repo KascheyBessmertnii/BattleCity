@@ -66,6 +66,11 @@ public static class FileHandler
             return File.ReadAllText(path);
         return "";
     }
+
+    public static bool FileExist(string path)
+    {
+        return File.Exists(path);
+    }
 }
 
 public static class JsonHelper

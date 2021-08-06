@@ -21,4 +21,7 @@ public class CreateLevelUI : MonoBehaviour
     [SerializeField] protected Button btnClose;
     [Space(10)]
     [SerializeField] protected TMP_InputField iLevelNum;
+
+    [Header("Warning panel")]
+    [SerializeField] protected GameObject warningPanel;
 }
