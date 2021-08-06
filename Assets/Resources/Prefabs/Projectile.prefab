@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf80741d1f460547bd80fc9fda517b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   activationDelay: 0.05
   ignoreTags:
   - Player

@@ -64,4 +64,8 @@ public class SceneController : MonoBehaviour
 
         return 0;
     }  
+    public bool CanMove(Vector3 rawPosition)
+    {
+        return false;
+    }
 }

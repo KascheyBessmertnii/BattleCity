@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44642b172869eda4d8150076274cd744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   activationDelay: 0.05
   ignoreTags:
   - Enemy

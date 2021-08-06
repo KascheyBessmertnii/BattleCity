@@ -1336,7 +1336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe2276b568175849b84d61034b6003e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDelay: 1
+  spawnDelay: 15
   units:
   - prefab: {fileID: 7404670140384967865, guid: 5441bbf5bf305204887f688bc2b1947d, type: 3}
     weight: 50

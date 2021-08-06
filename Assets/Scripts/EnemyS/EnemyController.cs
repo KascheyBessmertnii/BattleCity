@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour, IDestructable
     private bool isDestroy = false;
     private Vector3 currentDirection = Vector3.zero;
     private float shootTimer = 0;
+    private SceneController sceneController;
 
     #region Unity methods
     private void OnEnable()
@@ -32,6 +33,7 @@ public class EnemyController : MonoBehaviour, IDestructable
         TryGetComponent(out rb);
         TryGetComponent(out shooting);
         health = unitData.defaultHealth;
+        sceneController = SceneController.instance;
     }
     private void Update()
     {
@@ -92,7 +94,7 @@ public class EnemyController : MonoBehaviour, IDestructable
     #region public methods
     public void Destroy(int playerNum)
     {
-        PlayerController pc = SceneController.instance.GetPlayerData(playerNum);
+        PlayerController pc = sceneController.GetPlayerData(playerNum);
 
         if (pc == null) return;
 
@@ -100,9 +102,9 @@ public class EnemyController : MonoBehaviour, IDestructable
         {           
             pc.AddEnemy(unitData.scoreReward);
             SoundController.instance.PlayDestroy();
-            Destroy(gameObject);
             isDestroy = true;
             Stop();
+            Destroy(gameObject);
         }
         else
             health -= pc.Damage;
