@@ -63,7 +63,7 @@ public class PlayerInputController : MonoBehaviour
     {
         if (movement != null)
         {
-            movement.Move(moveDir);
+            movement.Move(moveDir, player.unitData.speed);
         }
     }
     #endregion
@@ -75,7 +75,7 @@ public class PlayerInputController : MonoBehaviour
         {
             if ((player.PlayerNum == 1 && Input.GetKeyDown(p1ShootKey)) ||
                 (player.PlayerNum == 2 && Input.GetKeyDown(p2ShootKey)))
-                shoot.Shoot();
+                shoot.Shoot(player.unitData.projectilePrefab, player.unitData.shootDelay);
         }
     }
     #endregion

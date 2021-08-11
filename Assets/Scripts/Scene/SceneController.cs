@@ -35,7 +35,7 @@ public class SceneController : MonoBehaviour
     }
     private void SpawnPlayer(string prefabName, Vector3 pos, int playerNum)
     {
-        if (pos == new Vector3(-1, -1, -1)) return;
+        if (pos == Vector3.zero) return;
         GameObject prefab = Resources.Load("Prefabs/" + prefabName) as GameObject;
         var obj = Instantiate(prefab, pos, Quaternion.identity).GetComponent<PlayerController>();
 

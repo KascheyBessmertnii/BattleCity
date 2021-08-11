@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDestructable, ICollectBonus
 {
-    [SerializeField] private UnitSO unitData;
+    public UnitSO unitData;
 
     public int Damage { get; private set; }
     public int CurrentHealth { get; private set; }
@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour, IDestructable, ICollectBonus
             GameEvents.OnGameEnd?.Invoke();
             return;
         }
-
-        if (CurrentHealth == 0) return;
 
         Vector3 spawnPosition = 
             unitData.playerNum == 1 ? SceneData.GetObjectSpawnPoint(ObjectsTypes.Player1) : SceneData.GetObjectSpawnPoint(ObjectsTypes.Player2);     

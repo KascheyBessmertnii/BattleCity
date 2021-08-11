@@ -3,8 +3,6 @@ using UnityEngine;
 public class Shooting : MonoBehaviour, IShooting
 {
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private Projectile projectile1Prefab;
-    [SerializeField] private float shootDelay = 0.1f;
 
     private float timer = 0;
     private PlayerController player;
@@ -24,15 +22,15 @@ public class Shooting : MonoBehaviour, IShooting
         }
     }
 
-    public void Shoot()
+    public void Shoot(Projectile prefab, float shootInterval)
     {
-        if (projectile1Prefab == null || shootPoint == null) return;
+        if (shootPoint == null) return;
 
-        if(timer == 0)
+        if (timer == 0)
         {
-            Projectile obj = Instantiate(projectile1Prefab, shootPoint.position, shootPoint.rotation);
+            Projectile obj = Instantiate(prefab, shootPoint.position, shootPoint.rotation);
             obj.Initialize(player);
-            timer = shootDelay;
-        }     
+            timer = shootInterval;
+        }
     }
 }

@@ -1,22 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class EnemyController : MonoBehaviour, IDestructable
 {
     [SerializeField] private UnitSO unitData;
 
-    private readonly Directions[] directions = new Directions[4] { new Directions(new Vector3(1, 0, 0), 20),
-                                                    new Directions(new Vector3(-1, 0, 0), 20),
-                                                    new Directions(new Vector3(0, 0, 1), 10),
-                                                    new Directions(new Vector3(0, 0, -1), 30) };
-
-    private Rigidbody rb;
     private IShooting shooting;
+    private IMovement movement;
     private int health;
 
-    private bool isDestroy = false;
-    private Vector3 currentDirection = Vector3.zero;
-    private float shootTimer = 0;
     private SceneController sceneController;
 
     #region Unity methods
@@ -30,64 +21,29 @@ public class EnemyController : MonoBehaviour, IDestructable
     }
     private void Awake()
     {
-        TryGetComponent(out rb);
         TryGetComponent(out shooting);
+        TryGetComponent(out movement);
         health = unitData.defaultHealth;
         sceneController = SceneController.instance;
     }
     private void Update()
     {
-        if (shootTimer <= 0)
-            TryShoot();
-        else
-            shootTimer -= Time.deltaTime;
+        shooting.Shoot(unitData.projectilePrefab, unitData.shootDelay);
     }
     private void FixedUpdate()
     {
-        if (isDestroy) return;
-
-        if (currentDirection == Vector3.zero)
+        if (!movement.IsMoving())
         {
-            Move();
-        }
-            
-        if (rb.velocity.magnitude < unitData.speed - 0.1f)
-        {
-            Stop();
+            movement.Stop();
+            movement.Move(Vector3.zero, unitData.speed);
         }
     }
     #endregion
 
     #region private methods
-    private void TryShoot()
-    {
-        float rnd = Random.Range(0, 1f);
-
-        if(rnd > 0.9f)
-        {
-            shootTimer = unitData.shootInterval;
-            shooting.Shoot();
-        }
-    }
-    private void Stop()
-    {
-        currentDirection = Vector3.zero;
-        rb.velocity = Vector3.zero;
-    }
     private void EndGame()
     {
         Destroy(gameObject);
-        isDestroy = true;
-        Stop();
-    }
-
-    private void Move()
-    {
-        currentDirection = Utility.GetRandomValue<Directions>(directions).Direct;
-        float targetAngle = Mathf.Atan2(currentDirection.x, currentDirection.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-
-        rb.velocity = currentDirection * unitData.speed;
     }
     #endregion
 
@@ -101,9 +57,6 @@ public class EnemyController : MonoBehaviour, IDestructable
         if(pc.Damage >= health)
         {           
             pc.AddEnemy(unitData.scoreReward);
-            SoundController.instance.PlayDestroy();
-            isDestroy = true;
-            Stop();
             Destroy(gameObject);
         }
         else
@@ -113,17 +66,4 @@ public class EnemyController : MonoBehaviour, IDestructable
             GameEvents.OnSpawnBonus?.Invoke();
     }
     #endregion
-}
-
-[System.Serializable]
-public class Directions : IWeighted
-{
-    public Vector3 Direct { get; set; }
-    public int Weight { get; set; }
-
-    public Directions(Vector3 dir, int weight)
-    {
-        Direct = dir;
-        Weight = weight;
-    }
 }

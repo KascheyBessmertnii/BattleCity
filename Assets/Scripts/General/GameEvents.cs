@@ -20,4 +20,7 @@ public class GameEvents
 
     public delegate void ShowSettingsMenu();
     public static ShowSettingsMenu OnShowMenu;
+
+    public delegate void NewHiScore();
+    public static NewHiScore OnNewHiScore;
 }

@@ -20,11 +20,11 @@ public class Movement : MonoBehaviour, IMovement
     {
         GameEvents.OnPlayerDestroy -= Stop;
     }
-    private void Stop()
+    public void Stop()
     {
         rb.velocity = Vector3.zero;
     }
-    public void Move(Vector3 direction)
+    public void Move(Vector3 direction, float speed)
     {
         if(direction.magnitude >= 0.1)
         {
@@ -37,5 +37,10 @@ public class Movement : MonoBehaviour, IMovement
         {
             rb.velocity = Vector3.zero;
         }
+    }
+
+    public bool IsMoving()
+    {
+        throw new System.NotImplementedException();
     }
 }

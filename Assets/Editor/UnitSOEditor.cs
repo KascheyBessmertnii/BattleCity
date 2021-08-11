@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(UnitSO))]
 public class UnitSOEditor : Editor
@@ -19,6 +20,14 @@ public class UnitSOEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Damage");
         uso.defaultDamage = EditorGUILayout.IntField(uso.defaultDamage);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Shoot interval");
+        uso.shootDelay = EditorGUILayout.FloatField(uso.shootDelay);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Projectile prefab");
+        uso.projectilePrefab = (Projectile)EditorGUILayout.ObjectField(uso.projectilePrefab, typeof(Projectile), true);
         EditorGUILayout.EndHorizontal();
 
         if (uso.type == UnitType.Player)
@@ -41,10 +50,6 @@ public class UnitSOEditor : Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Move time");
             uso.moveTime = EditorGUILayout.FloatField(uso.moveTime);
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Shoot interval");
-            uso.shootInterval = EditorGUILayout.FloatField(uso.shootInterval);
             EditorGUILayout.EndHorizontal();
         }
 

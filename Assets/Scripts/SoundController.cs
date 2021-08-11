@@ -25,11 +25,15 @@ public class SoundController : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnGameEnd += PlayBaseDestroy;
+        GameEvents.OnEnemyDetroy += PlayDestroy;
+        GameEvents.OnNewHiScore += PlayNewHiScore;
     }
 
     private void OnDisable()
     {
         GameEvents.OnGameEnd -= PlayBaseDestroy;
+        GameEvents.OnEnemyDetroy -= PlayDestroy;
+        GameEvents.OnNewHiScore -= PlayNewHiScore;
     }
 
     private void OnDestroy()

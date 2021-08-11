@@ -11,7 +11,6 @@ public class Level
     public Level(Vector2Int mapSize, string mapData = null)
     {
         FillSinglePoints();
-        SceneData.FillSpawnPoints();
 
         map = new Point[mapSize.x, mapSize.y];
 
@@ -95,25 +94,20 @@ public class Level
         }
 
         //return position behind the screen
-        return new Vector3(-1, -1, -1);
+        return Vector3.zero;
     }
     private void InstantiateObject(Point point)
     {
         Vector3 pos = new Vector3(point.PosX, 0, point.PosZ);
         GameObject prefab = SceneData.GetObjectByType(point.Type);
-        if (singleObjectSpawned.ContainsKey(point.Type))
+        if (singleObjectSpawned.ContainsKey(point.Type) && !singleObjectSpawned[point.Type])
         {
-            if (singleObjectSpawned[point.Type]) return;
             singleObjectSpawned[point.Type] = true;
             SceneData.SetSpawPosition(point.Type, pos);
-            if (prefab != null)
-                UnityEngine.Object.Instantiate(prefab, pos, Quaternion.identity);
         }
-        else
-        {
-            if (prefab != null)
-                UnityEngine.Object.Instantiate(prefab, pos, Quaternion.identity);
-        }
+
+        if (prefab != null)
+            UnityEngine.Object.Instantiate(prefab, pos, Quaternion.identity);
     }
     private void FillSinglePoints()
     {    
@@ -124,6 +118,8 @@ public class Level
         singleObjectSpawned.Add(ObjectsTypes.Enemy3, false);
         singleObjectSpawned.Add(ObjectsTypes.Player1, false);
         singleObjectSpawned.Add(ObjectsTypes.Player2, false);
+
+        SceneData.FillSpawnPoints();
     }
 }
 
@@ -134,9 +130,7 @@ public class Point
     public float PosZ { get; set; }
     public ObjectsTypes Type { get; set; }
 
-    public Point() 
-    {
-    }
+    public Point() {}
 
     public Point (float posX, float posZ, ObjectsTypes type)
     {

@@ -1082,7 +1082,6 @@ GameObject:
   - component: {fileID: 1835098149717695860}
   - component: {fileID: 1835098149717695861}
   - component: {fileID: 1835098149717695858}
-  - component: {fileID: 1835098149717695862}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -1171,21 +1170,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1835098149717695862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835098149717695859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee7cb1ef2e27674ea80d56615b359e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settingsPanel: {fileID: 1835098148350314082}
-  mainSound: {fileID: 1835098148561141148}
-  effects: {fileID: 1835098148928633212}
 --- !u!1 &1835098149972925988
 GameObject:
   m_ObjectHideFlags: 0

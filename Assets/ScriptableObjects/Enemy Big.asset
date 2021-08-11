@@ -16,8 +16,9 @@ MonoBehaviour:
   speed: 1
   defaultHealth: 2
   defaultDamage: 1
+  shootDelay: 2
+  projectilePrefab: {fileID: 4936608684500169619, guid: bfe57dddfcf02624ab4bfd9cff7732fa, type: 3}
   playerNum: 1
   spawnBonus: 1
   scoreReward: 200
   moveTime: 15
-  shootInterval: 0.7
